@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant – Order & Billing</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Restaurant</h1>
+    <nav class="main-nav">
+      <button type="button" class="nav-btn active" data-section="order">Order / Billing</button>
+      <button type="button" class="nav-btn" data-section="manage-menu">Manage Menu</button>
+      <button type="button" class="nav-btn" data-section="report">Monthly Report</button>
+      <button type="button" class="nav-btn" data-section="settings">Settings</button>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <!-- Order / Billing section -->
+    <section id="section-order" class="section active">
+      <div class="order-layout">
+        <div class="menu-area"> 
+          <h2>Signature Items</h2>
+          <div id="menu-grid" class="menu-grid"><!-- filled by JS --></div>
+        </div>
+        <div class="cart-area">
+          <h2>Cart & Bill</h2>
+          <div id="cart-bill" class="cart-bill">
+            <div id="cart-items" class="cart-items"><!-- itemized list --></div>
+            <div class="cart-total">
+              <strong>Subtotal: <span id="cart-subtotal">0</span></strong>
+            </div>
+            <div class="cart-actions">
+              <button type="button" id="btn-clear-cart">Clear cart</button>
+              <button type="button" id="btn-print-bill">Print bill</button>
+              <button type="button" id="btn-pay-now">Pay now</button>
+            </div>
+          </div>
+          <div id="bill-print-area" class="bill-print-area" aria-hidden="true"><!-- for print --></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Manage menu section -->
+    <section id="section-manage-menu" class="section">
+      <h2>Manage Menu</h2>
+      <div class="manage-form-wrap">
+        <form id="form-menu-item" class="form-menu">
+          <input type="hidden" id="menu-edit-id" value="">
+          <label>Name <input type="text" id="menu-name" required placeholder="e.g. Idly"></label>
+          <label>Price <input type="number" id="menu-price" required min="0" step="0.01" placeholder="50"></label>
+          <label>Image URL <input type="text" id="menu-image" placeholder="https://..."></label>
+          <div class="form-actions">
+            <button type="submit" id="btn-save-item">Add item</button>
+            <button type="button" id="btn-cancel-edit">Cancel</button>
+          </div>
+        </form>
+        <button type="button" id="btn-reset-menu" class="reset-menu-btn">Reset default menu</button>
+      </div>
+      <div class="menu-list-wrap">
+        <div class="menu-table-wrap">
+          <table class="menu-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="menu-table-body"><!-- filled by JS --></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Monthly report section -->
+    <section id="section-report" class="section">
+      <h2>Monthly Sales Report</h2>
+      <div class="report-controls">
+        <label>Month <input type="month" id="report-month"></label>
+        <button type="button" id="btn-show-report">Show report</button>
+      </div>
+      <div id="report-output" class="report-output">
+        <p id="report-total">Total sales: —</p>
+        <p id="report-count">Order count: —</p>
+        <div id="report-orders" class="report-orders"><!-- list of orders --></div>
+      </div>
+    </section>
+
+    <!-- Settings section -->
+    <section id="section-settings" class="section">
+      <h2>Settings</h2>
+      <div class="settings-form">
+        <label>QR image URL (for Pay now) <input type="text" id="settings-qr-url" placeholder="https://... or data URL"></label>
+        <button type="button" id="btn-save-settings">Save settings</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pay now modal -->
+  <div id="pay-modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <h3>Pay now</h3>
+      <div class="qr-wrap">
+        <img id="pay-qr-image" src="" alt="QR code for payment" class="qr-image">
+        <p id="pay-qr-placeholder" class="qr-placeholder">Set QR image URL in Settings.</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="btn-done-paid">Done / I've paid</button>
+        <button type="button" id="btn-close-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="app.js"></script>
+</body>
+</html>
